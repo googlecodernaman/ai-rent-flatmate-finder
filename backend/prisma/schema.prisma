@@ -1,0 +1,173 @@
+// ──────────────────────────────────────────────
+// Rent & Flatmate Finder — Database Schema
+// ──────────────────────────────────────────────
+// This file IS the database documentation.
+// All models, enums, relations, indexes, and
+// constraints are defined here.
+// ──────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+// ──────────────── Enums ───────────────────────
+
+enum Role {
+  OWNER
+  TENANT
+  ADMIN
+}
+
+enum RoomType {
+  SINGLE
+  SHARED
+  STUDIO
+}
+
+enum FurnishingStatus {
+  FURNISHED
+  SEMI_FURNISHED
+  UNFURNISHED
+}
+
+enum InterestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+// ──────────────── Models ──────────────────────
+
+/// Core user model. Single table for all 3 roles (owner, tenant, admin).
+/// Role-based access is enforced at the middleware level, not at the DB level.
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenantProfile       TenantProfile?
+  listings            Listing[]
+  sentInterests       InterestRequest[] @relation("TenantInterests")
+  receivedInterests   InterestRequest[] @relation("OwnerInterests")
+  compatibilityScores CompatibilityScore[]
+  chatMessages        ChatMessage[]
+
+  @@map("users")
+}
+
+/// Tenant-specific preferences. 1:1 with User where role = TENANT.
+/// These fields drive compatibility scoring.
+model TenantProfile {
+  id                String   @id @default(uuid())
+  userId            String   @unique @map("user_id")
+  preferredLocation String   @map("preferred_location")
+  budgetMin         Int      @map("budget_min")
+  budgetMax         Int      @map("budget_max")
+  moveInDate        DateTime @map("move_in_date")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tenant_profiles")
+}
+
+/// Room listing posted by an owner.
+/// Photos stored as an array of URL strings (PostgreSQL native array).
+model Listing {
+  id               String           @id @default(uuid())
+  ownerId          String           @map("owner_id")
+  title            String
+  description      String?
+  location         String
+  rent             Int
+  availableFrom    DateTime         @map("available_from")
+  roomType         RoomType         @map("room_type")
+  furnishingStatus FurnishingStatus @map("furnishing_status")
+  photos           String[]         // Array of URL/path strings
+  isFilled         Boolean          @default(false) @map("is_filled")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  owner               User                 @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  interests           InterestRequest[]
+  compatibilityScores CompatibilityScore[]
+
+  @@map("listings")
+}
+
+/// AI compatibility score: one per (tenant, listing) pair.
+/// Persisted after first computation — never recomputed on read.
+/// `isFallback` distinguishes LLM-computed scores from rule-based fallbacks.
+model CompatibilityScore {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id")
+  listingId   String   @map("listing_id")
+  score       Int      // 0–100
+  explanation String
+  isFallback  Boolean  @default(false) @map("is_fallback")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  tenant  User    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  // One score per tenant-listing pair, enforced at DB level
+  @@unique([tenantId, listingId])
+  @@map("compatibility_scores")
+}
+
+/// Interest request: tenant → listing (and implicitly → owner).
+/// Lifecycle: PENDING → ACCEPTED or DECLINED.
+/// Chat is unlocked only when status = ACCEPTED.
+model InterestRequest {
+  id        String         @id @default(uuid())
+  tenantId  String         @map("tenant_id")
+  listingId String         @map("listing_id")
+  ownerId   String         @map("owner_id")
+  status    InterestStatus @default(PENDING)
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   User          @relation("TenantInterests", fields: [tenantId], references: [id], onDelete: Cascade)
+  owner    User          @relation("OwnerInterests", fields: [ownerId], references: [id], onDelete: Cascade)
+  listing  Listing       @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  // One interest per tenant-listing pair, enforced at DB level
+  @@unique([tenantId, listingId])
+  @@map("interest_requests")
+}
+
+/// Chat message within an accepted interest conversation.
+/// Indexed by (interestId, createdAt) for fast ordered retrieval.
+model ChatMessage {
+  id         String   @id @default(uuid())
+  interestId String   @map("interest_id")
+  senderId   String   @map("sender_id")
+  content    String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  interest InterestRequest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+  sender   User            @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  // Fast ordered retrieval of chat history per conversation
+  @@index([interestId, createdAt])
+  @@map("chat_messages")
+}
