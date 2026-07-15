@@ -1,6 +1,7 @@
 const prisma = require('../lib/prisma');
 const gemini = require('./gemini.service');
-const { SCORE_BUDGET_WEIGHT, SCORE_LOCATION_WEIGHT } = require('../config/constants');
+const { SCORE_BUDGET_WEIGHT, SCORE_LOCATION_WEIGHT, SCORE_THRESHOLD } = require('../config/constants');
+const emailService = require('./email.service');
 
 /**
  * Compute and persist a compatibility score for one (tenant, listing) pair.
@@ -51,6 +52,29 @@ async function computeAndPersistScore(tenantId, listingId) {
       isFallback,
     },
   });
+
+  // Fire-and-forget high-compatibility email to listing owner
+  if (record.score >= SCORE_THRESHOLD) {
+    (async () => {
+      try {
+        const [tenant, listing] = await Promise.all([
+          prisma.user.findUnique({ where: { id: tenantId }, select: { name: true } }),
+          prisma.listing.findUnique({
+            where: { id: listingId },
+            select: { title: true, owner: { select: { email: true, name: true } } },
+          }),
+        ]);
+        if (tenant && listing)
+          await emailService.sendHighCompatibilityEmail(
+            listing.owner.email,
+            listing.owner.name,
+            tenant.name,
+            listing.title,
+            record.score
+          );
+      } catch (e) { console.error('[email] high-compat email failed:', e.message); }
+    })();
+  }
 
   return record;
 }

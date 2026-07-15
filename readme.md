@@ -1,83 +1,103 @@
 # NivasAI – AI Rent & Flatmate Finder
 
-An AI-powered Rent & Flatmate Finder platform built as part of a placement assignment. It enables property owners to post room listings and tenants to browse them with an AI-computed compatibility score matching their profile.
+An AI-powered Rent & Flatmate Finder platform built as part of a placement assignment. Property owners post room listings; tenants browse them with AI-computed compatibility scores, express interest, and chat with owners once accepted.
 
 ## 🚀 Status
 
-🚧 **Under active development**
+✅ **Backend complete — all 15 tasks done.**
 
-### ✅ Completed Features (Tasks 1-9)
-- **Backend Architecture & Config**: Express 5 server, centralized error handling, and environment validation.
-- **Database Schema**: 6 models (User, TenantProfile, Listing, CompatibilityScore, InterestRequest, ChatMessage) using PostgreSQL (Neon) and Prisma ORM.
-- **Authentication & Authorization**: JWT-based auth with RBAC (`OWNER`, `TENANT`, `ADMIN`).
-- **Tenant Profile**: CRUD operations ensuring a 1-to-1 mapping for tenants.
-- **Listing Management**: Owner-driven listing CRUD, photo uploads (multer), and "room filled" marking.
-- **Listing Browse & Filter**: Tenant view for browsing active listings with pagination and filters (location, budget).
-- **AI Scoring Engine (Gemini Flash)**: Computes a compatibility score (0-100) between a tenant's profile and a listing. Gracefully falls back to a rule-based algorithm (budget & location matching) if LLM fails or is unavailable.
-- **Batch Scoring & Invalidation**: Fire-and-forget background processing triggers score re-computations when profiles or listing material fields change.
-- **Compatibility API & Ranking**: Integrates compatibility scores into the tenant's browsing experience, ranking listings by score.
-
-### ⏳ Pending Features (Tasks 10-15)
-- Interest Request Flow (PENDING → ACCEPTED → DECLINED)
-- Email Notifications (Resend API)
-- WebSocket Real-Time Chat for accepted interests (Socket.IO)
-- Admin API for stats and user management
-- Seed script for demo data
-- Backend Polish & Rate Limiting
+### Completed Features
+- **Scaffolding & Config**: Express server, centralized env validation, error handling, rate limiting.
+- **Database**: 6 models (User, TenantProfile, Listing, CompatibilityScore, InterestRequest, ChatMessage) on Neon PostgreSQL via Prisma 6.
+- **Auth & RBAC**: JWT register/login, role middleware (OWNER / TENANT / ADMIN).
+- **Tenant Profile**: Create / read / update, one per tenant.
+- **Listing Management**: Owner CRUD, photo uploads (multer), "room filled" marker.
+- **Listing Browse & Filter**: Tenant view with pagination, location/budget filters.
+- **AI Scoring Engine**: Gemini Flash LLM scoring (0–100) with rule-based fallback (budget 60% + location 40%). Score persisted and upserted per (tenant, listing) pair.
+- **Batch Scoring & Invalidation**: Fire-and-forget triggers on profile and listing changes. Rate-limited to 4s between LLM calls.
+- **Compatibility API & Ranking**: Listings ranked by compatibility score descending. Lazy-compute on demand.
+- **Interest Request Flow**: PENDING → ACCEPTED → DECLINED. Duplicate and self-interest guarded.
+- **Email Notifications**: Resend API — owner notified on high compatibility score; tenant notified on acceptance. Graceful no-op if key missing.
+- **Real-Time Chat**: Socket.IO with JWT handshake auth. Rooms per interest. ACCEPTED-only gate. Messages persisted to DB.
+- **Admin API**: Stats, paginated user/listing management, cascade delete.
+- **Seed Script**: 1 admin, 3 owners, 5 tenants, 9 listings, 45 scores, 4 interests, sample chat.
 
 ## 🛠️ Tech Stack
 
-- **Runtime**: Node.js
-- **Framework**: Express.js 5
-- **Database**: PostgreSQL (hosted on Neon)
-- **ORM**: Prisma 6
-- **AI Integration**: Google Gemini API (gemini-1.5-flash)
-- **Validation**: Zod
-- **Authentication**: JWT, bcryptjs
-- **File Uploads**: Multer (Local File System)
+| Layer | Technology |
+|-------|-----------|
+| Runtime | Node.js |
+| Framework | Express.js 4 |
+| Database | PostgreSQL (Neon) |
+| ORM | Prisma 6 |
+| AI | Google Gemini Flash (`gemini-1.5-flash`) |
+| Real-Time | Socket.IO 4 |
+| Email | Resend |
+| Validation | Zod |
+| Auth | JWT + bcryptjs |
+| File Uploads | Multer (local `/uploads/`) |
+| Rate Limiting | express-rate-limit |
 
-## 💻 Local Setup
+## ⚙️ Setup
 
-1. **Clone the repository** and navigate to the `backend` directory:
-   ```bash
-   cd e:\nivasai\rent-flatmate-finder\backend
-   ```
+```bash
+cd e:\nivasai\rent-flatmate-finder\backend
+npm install
+```
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+**`.env` (copy from `.env.example`):**
+```env
+DATABASE_URL="postgresql://..."        # Neon pooler connection string
+JWT_SECRET="your-secret"
+GEMINI_API_KEY="AIza..."               # Optional — falls back to rule-based scoring
+RESEND_API_KEY="re_..."               # Optional — emails skipped if missing
+EMAIL_FROM="onboarding@resend.dev"
+SCORE_THRESHOLD=80                     # Min score to trigger owner email
+PORT=3000
+```
 
-3. **Environment Configuration**:
-   Create a `.env` file in the `backend` directory (use `.env.example` as a template):
-   ```env
-   DATABASE_URL="postgresql://<user>:<password>@<neon-host>/neondb?sslmode=require&channel_binding=require"
-   JWT_SECRET="your-secret"
-   PORT=3000
-   GEMINI_API_KEY="your-gemini-key" # Optional, falls back to rule-based scoring if omitted
-   ```
+**Apply schema:**
+```bash
+npx prisma db push
+```
 
-4. **Database Migration**:
-   Apply the schema to your Neon PostgreSQL instance:
-   ```bash
-   npx prisma db push
-   npx prisma generate
-   ```
+**Seed demo data:**
+```bash
+npm run db:seed
+# Credentials: password123 for all accounts
+# Admin: admin@example.com
+# Owners: rahul@example.com, priya@example.com, arjun@example.com
+# Tenants: sneha@example.com, vikram@example.com, divya@example.com, rohan@example.com, aisha@example.com
+```
 
-5. **Start the Server**:
-   ```bash
-   npm run dev
-   # or
-   node src/server.js
-   ```
+**Start server:**
+```bash
+node src/server.js
+# → http://localhost:3000
+# → GET /api/health to verify
+```
 
-   The server will run on `http://localhost:3000`. Test the health endpoint: `GET /api/health`.
+## 📡 API Overview
+
+| Group | Base Path | Roles |
+|-------|-----------|-------|
+| Auth | `/api/auth` | Public |
+| Tenant Profile | `/api/tenant-profile` | TENANT |
+| Listings | `/api/listings` | OWNER (write), TENANT (read) |
+| Compatibility | `/api/compatibility` | TENANT |
+| Interests | `/api/interests` | TENANT (send), OWNER (manage) |
+| Chat REST | `/api/chats` | TENANT + OWNER (ACCEPTED only) |
+| Admin | `/api/admin` | ADMIN |
+| Chat WebSocket | `ws://localhost:3000` | TENANT + OWNER (JWT in `auth.token`) |
+
+Full endpoint reference: [`API_CONTRACT.md`](./API_CONTRACT.md)
 
 ## 📚 Documentation
 
-Detailed documentation and task breakdowns are available in the repository root:
-- [`RULES.md`](./RULES.md): Architecture boundaries and project constraints.
-- [`PROJECT_STATE.md`](./PROJECT_STATE.md): Current progress and directory structure.
-- [`API_CONTRACT.md`](./API_CONTRACT.md): Detailed API endpoints, request/response structures.
-- [`TASKS.md`](./TASKS.md): Feature specifications.
-- [`AI_HANDOVER.md`](./AI_HANDOVER.md): Quickstart guide for AI agents.
+| File | Purpose |
+|------|---------|
+| [`RULES.md`](./RULES.md) | Architecture boundaries and constraints |
+| [`PROJECT_STATE.md`](./PROJECT_STATE.md) | Progress tracker and directory structure |
+| [`API_CONTRACT.md`](./API_CONTRACT.md) | Full endpoint reference |
+| [`TASKS.md`](./TASKS.md) | Task specifications and implementation notes |
+| [`AI_HANDOVER.md`](./AI_HANDOVER.md) | Agent quickstart guide |

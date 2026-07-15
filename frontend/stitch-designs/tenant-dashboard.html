@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NivasAI - Tenant Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container": "#eceef0",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed": "#e1e0ff",
+                        "secondary-container": "#dae2fd",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-fixed": "#0f0069",
+                        "surface": "#f7f9fb",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#dae2fd",
+                        "on-surface-variant": "#464555",
+                        "surface-dim": "#d8dadc",
+                        "outline-variant": "#c7c4d8",
+                        "on-secondary-container": "#5c647a",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-tertiary-container": "#d9d8ff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "surface-bright": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "error": "#ba1a1a",
+                        "secondary": "#565e74",
+                        "inverse-surface": "#2d3133",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#e2dfff",
+                        "tertiary": "#3130c0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#dad7ff",
+                        "outline": "#777587",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#4b4dd8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "ai-stat": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "ai-stat": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean horizontal scrolls */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased flex">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 py-8 px-4 border-r border-outline-variant/20 bg-surface dark:bg-inverse-surface shadow-md z-40">
+<div class="mb-stack-lg px-4">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">NivasAI</h1>
+</div>
+<div class="flex items-center gap-stack-md px-4 mb-stack-lg">
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden shrink-0">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a person, well-lit studio photography, soft lighting, neutral background, suitable for a corporate profile or real estate investor avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjCoMUNg4AM6eMDFvLkO573NI5uGHG7Xub503WC9lFZknAPDnOq3skR0O_cw0r-rtAw578WXH7wXPg5d-3Rd15bhHtVFieiQ8HN1XWYxEjaR0rb2Qf5vcdKxzQUaShVvLY3vqeBwXx5f5VOIVE4G36iQnPgSMtvVG6TjWCBct_C_v1cCMS684B8c3Z8quRxJVAsHdvJMl6QBfOhrPxLhkBNqd6yDdq_F1jgMFAMGhpSYoyp0e96NqKjWE1bAxTRzGB_IdAnZ2xVI2s"/>
+</div>
+<div>
+<p class="font-title-md text-title-md font-semibold leading-tight">Alex Rivera</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Premium Investor</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-body-md text-body-md">My Properties</span>
+</a>
+<a class="flex items-center gap-stack-md bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-3 transition-transform active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome" data-weight="fill">auto_awesome</span>
+<span class="font-body-md text-body-md font-semibold">Matches</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-body-md text-body-md">Messages</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md">Financials</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-primary-container text-on-primary border-none rounded-lg py-2 px-4 font-title-md text-title-md font-semibold hover:bg-primary transition-colors shadow-sm">
+                Upgrade to Pro
+            </button>
+<div class="space-y-2 border-t border-outline-variant/30 pt-4">
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-2 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-2 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Mobile TopBar (Simplified for context) -->
+<header class="md:hidden fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 px-margin-mobile h-16 flex items-center justify-between">
+<h1 class="font-title-md text-title-md font-bold text-primary">NivasAI</h1>
+<button class="text-on-surface"><span class="material-symbols-outlined">menu</span></button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 pt-16 md:pt-0 p-margin-mobile md:p-margin-desktop max-w-container-max">
+<header class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Your Best Matches</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-unit">AI-curated properties based on your lifestyle profile.</p>
+</div>
+<div class="flex gap-stack-sm">
+<button class="bg-surface-container-low text-on-surface border border-outline-variant/50 rounded-lg px-4 py-2 font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span> Filters
+                </button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Top Match (Spans 8 cols) -->
+<article class="col-span-1 lg:col-span-8 bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 overflow-hidden shadow-[0_4px_6px_-1px_rgb(0,0,0,0.05),0_2px_4px_-2px_rgb(0,0,0,0.05)] hover:shadow-lg transition-shadow group cursor-pointer relative">
+<!-- AI Badge -->
+<div class="absolute top-4 right-4 z-10 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-primary/20 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]" data-weight="fill">auto_awesome</span>
+<span class="font-ai-stat text-ai-stat text-primary">94% Match</span>
+</div>
+<div class="aspect-[16/9] md:aspect-[21/9] w-full relative overflow-hidden bg-surface-variant">
+<img alt="Top match property" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A bright, modern luxury apartment living room with floor-to-ceiling windows overlooking a city skyline. Natural light floods the space, highlighting minimalist furniture, a neutral color palette of whites and grays, and sleek architectural lines. High-end real estate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3LloARncKvBIr6YkykUsAB9JZIRWZwZT0vZxFAzXQgXI4p7y2pxNQlkJbO24QRxVHZwisUuMsNZPMgl2PfoZtHhjxjz6N8f0uM1WcDRdajdUi7LtPOJOCEkNlb6j7gSTkOPlQFiwefVDAs4lg3Etu0mPBC4FB2I5FttSEVycTVdbEFvyVRpp-qGuCneIGdcxll6MtvLWJZ5PfqLFbfUKSN3TjkBI4zKvdJlPfobmqpNGcK7Ekk57JVns6n7PuUN2nsAfW6Qty-ytd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<span class="font-label-caps text-label-caps bg-primary px-2 py-1 rounded inline-block mb-2">FOR RENT</span>
+<h3 class="font-title-md text-title-md">$4,200 <span class="font-body-sm text-body-sm opacity-80">/mo</span></h3>
+<p class="font-body-md text-body-md truncate">The Lumina • 201 Folsom St, San Francisco</p>
+</div>
+</div>
+<!-- Match Score Breakdown (Linear/SaaS style) -->
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-surface-container-lowest border-t border-outline-variant/20">
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Location</span>
+<span class="font-ai-stat text-ai-stat text-primary">98%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 98%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">payments</span> Price</span>
+<span class="font-ai-stat text-ai-stat text-primary">85%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">directions_run</span> Lifestyle</span>
+<span class="font-ai-stat text-ai-stat text-primary">92%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Upcoming Viewings (AI Recommendations - Spans 4 cols) -->
+<aside class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-[16px] border-t-4 border-primary border-x border-b border-outline-variant/30 shadow-sm p-6 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
+<h3 class="font-title-md text-title-md text-on-background mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_clock</span>
+                    AI Schedule Intel
+                </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Optimized viewing route based on your availability.</p>
+<div class="space-y-4 relative before:absolute before:inset-y-2 before:left-[11px] before:w-px before:bg-outline-variant/40">
+<!-- Viewing Item 1 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1.5 w-[22px] h-[22px] bg-primary-container rounded-full border-4 border-surface-container-lowest z-10"></div>
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+<p class="font-label-caps text-label-caps text-primary mb-1">TOMORROW, 10:00 AM</p>
+<p class="font-body-sm text-body-sm font-semibold">The Lumina (94% Match)</p>
+<button class="mt-2 text-primary font-body-sm text-body-sm hover:underline flex items-center gap-1">
+                                Confirm <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Viewing Item 2 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1.5 w-[22px] h-[22px] bg-surface-container-high rounded-full border-4 border-surface-container-lowest z-10"></div>
+<div class="bg-surface-container-low/50 rounded-lg p-3 border border-outline-variant/20">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">TOMORROW, 11:30 AM</p>
+<p class="font-body-sm text-body-sm font-semibold opacity-70">SOMA Grand (88% Match)</p>
+<button class="mt-2 text-on-surface-variant font-body-sm text-body-sm hover:text-primary flex items-center gap-1">
+                                Request Time
+                            </button>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 bg-surface-container text-on-surface border border-outline-variant/50 rounded-lg py-2 font-body-sm text-body-sm font-semibold hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">map</span> View Route Map
+                </button>
+</aside>
+</div>
+<!-- Saved Properties Carousel (Horizontal scroll on mobile, grid on desktop) -->
+<section>
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-title-md text-title-md text-on-background">Saved Prospects</h3>
+<a class="text-primary font-body-sm text-body-sm hover:underline" href="#">View All</a>
+</div>
+<div class="flex md:grid md:grid-cols-3 gap-gutter overflow-x-auto no-scrollbar pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<!-- Card 1 -->
+<div class="min-w-[280px] md:min-w-0 bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 overflow-hidden shadow-sm hover:shadow-md transition-shadow shrink-0">
+<div class="h-40 w-full relative bg-surface-variant">
+<img alt="Saved property 1" class="w-full h-full object-cover" data-alt="Exterior shot of a modern, luxury high-rise residential building in an urban setting. Sleek glass facade reflecting the blue sky, crisp architectural lines, daytime, bright and aspirational real estate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAdtQzGReceDkLCkbi7kr5lv0vQ0jpxxpqqccXKuTgLj-k6TCK1BHWdkaP2s_y0fkdcUQp7gHIcmKhbyuXFITCMmfFP2PR3SkMSfUa3sC-_yBDF8zXQa93rd1bslggvBTDnbvGiZR_e_F2dS1bsa10WhxNhjST7tlBzifY7U61foOof3GqfALgM6_T6AI8RaV0p3CM0V9cegQpnSt7nntijVPGFS-K8Uo8-ISDUL_hPlrosEtZXGhB2iUoUYolpqc8SdzJqOVeXPQm"/>
+<button class="absolute top-3 right-3 w-8 h-8 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">favorite</span>
+</button>
+<div class="absolute bottom-2 left-2 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps px-2 py-0.5 rounded text-[10px]">88% MATCH</div>
+</div>
+<div class="p-4">
+<h4 class="font-title-md text-title-md text-on-background leading-none mb-1">$3,850 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/mo</span></h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-3">SOMA Grand • 1160 Mission St</p>
+<div class="flex gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">shower</span> 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">square_foot</span> 850</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[280px] md:min-w-0 bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 overflow-hidden shadow-sm hover:shadow-md transition-shadow shrink-0">
+<div class="h-40 w-full relative bg-surface-variant">
+<img alt="Saved property 2" class="w-full h-full object-cover" data-alt="Interior view of a sleek, minimalist urban loft kitchen. White countertops, dark wood cabinets, stainless steel appliances, clean lines, high-end design, well-lit, neutral tones, premium real estate presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrqblI-piUzilxKuoU4-Hc58LqweWd8rX3idO975v8qVDGbQDrxV91bwXQCReQHwzM3XVEaaWP8BB3HkJi2iANbOWkButZDo-28kYObmWTj9AYCb5XpXWu0XmjKoqRV-Gdd16e-mIJM3dPzOsEJxh_hUqcMeH8ifeW5hdFSwbUydhniMR_cz4R-_HvRmgimgl8PELH_w5Y7kJNAo-rzd1S11K1KG2M2Ren8y75VSurnN6-Z7TUrI7MLOVrGjpy6gJSkDTg9_9RgvbG"/>
+<button class="absolute top-3 right-3 w-8 h-8 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">favorite</span>
+</button>
+<div class="absolute bottom-2 left-2 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps px-2 py-0.5 rounded text-[10px]">82% MATCH</div>
+</div>
+<div class="p-4">
+<h4 class="font-title-md text-title-md text-on-background leading-none mb-1">$4,500 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/mo</span></h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-3">Millennium Tower • 301 Mission St</p>
+<div class="flex gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 2</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">shower</span> 2</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">square_foot</span> 1,100</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[280px] md:min-w-0 bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 overflow-hidden shadow-sm hover:shadow-md transition-shadow shrink-0">
+<div class="h-40 w-full relative bg-surface-variant">
+<img alt="Saved property 3" class="w-full h-full object-cover" data-alt="A luxurious communal rooftop terrace in an urban apartment building. Comfortable lounge seating, greenery, fire pit, twilight lighting, city skyline in the background, sophisticated and inviting mood, high-end real estate amenities." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfCxur9u2y5RQ1hnG3v6vXBTqn0xkb6a_7Fle8W6ZRTfaC78abVCLf_I6OvkWegNFalmOtPb9xgk8Elt5IdyilP6CDuaiQ2G8mWwmbSSu_tAQKV5yqIsOfNQYb7u-_NXEkcEHYqNMfXsEphfMZrnW5OIXCNXly5-qJsExwI3UjzO_M4lvawtoMZRK3wxLZUFQrQlsX2TAjFZU4bcFnjXUGiGXU2vICJzM9_gY98qQsq2RQkFJrq5h77nnuOPS4pObMpU1YEz4J9QGV"/>
+<button class="absolute top-3 right-3 w-8 h-8 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">favorite</span>
+</button>
+<div class="absolute bottom-2 left-2 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps px-2 py-0.5 rounded text-[10px]">79% MATCH</div>
+</div>
+<div class="p-4">
+<h4 class="font-title-md text-title-md text-on-background leading-none mb-1">$3,950 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/mo</span></h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-3">NEMA • 8 10th St</p>
+<div class="flex gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">shower</span> 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">square_foot</span> 920</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

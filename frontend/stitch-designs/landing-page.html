@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NivasAI - Architectural Excellence in Real Estate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container": "#eceef0",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed": "#e1e0ff",
+                        "secondary-container": "#dae2fd",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-fixed": "#0f0069",
+                        "surface": "#f7f9fb",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#dae2fd",
+                        "on-surface-variant": "#464555",
+                        "surface-dim": "#d8dadc",
+                        "outline-variant": "#c7c4d8",
+                        "on-secondary-container": "#5c647a",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-tertiary-container": "#d9d8ff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "surface-bright": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "error": "#ba1a1a",
+                        "secondary": "#565e74",
+                        "inverse-surface": "#2d3133",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#e2dfff",
+                        "tertiary": "#3130c0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#dad7ff",
+                        "outline": "#777587",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#4b4dd8"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    spacing: {
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "section": "128px"
+                    },
+                    fontFamily: {
+                        "ai-stat": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "ai-stat": ["14px", { lineHeight: "18px", fontWeight: "600" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "title-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "display-xl": ["64px", { lineHeight: "72px", letterSpacing: "-0.03em", fontWeight: "800" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .ai-border-glow {
+            position: relative;
+        }
+        .ai-border-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, theme('colors.primary'), theme('colors.tertiary-container'), transparent);
+            z-index: 10;
+        }
+
+        .shadow-soft {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+
+        .shadow-lift {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container-high/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm hidden md:flex justify-between items-center px-margin-desktop h-20">
+<div class="flex items-center gap-stack-lg">
+<span class="font-display-lg text-display-lg font-bold text-primary tracking-tighter cursor-pointer">NivasAI</span>
+<div class="hidden lg:flex items-center gap-stack-md ml-stack-lg">
+<a class="font-title-md text-title-md text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 duration-200 cursor-pointer hover:bg-surface-container-low rounded-lg transition-all px-3 py-2" href="#">Browse</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200 cursor-pointer hover:bg-surface-container-low rounded-lg px-3 py-2" href="#">Marketplace</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200 cursor-pointer hover:bg-surface-container-low rounded-lg px-3 py-2" href="#">Dashboards</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200 cursor-pointer hover:bg-surface-container-low rounded-lg px-3 py-2" href="#">Insights</a>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<!-- Search Bar placeholder -->
+<div class="relative hidden xl:block w-64 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-2 pl-10 pr-4 font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all shadow-soft group-hover:shadow-lift" placeholder="Search properties..." type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 font-label-caps text-label-caps text-outline bg-surface-container-low px-1.5 py-0.5 rounded text-[10px]">⌘K</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">chat_bubble</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+<div class="flex items-center gap-stack-sm border-l border-outline-variant/50 pl-gutter">
+<button class="font-body-md text-body-md font-medium text-on-surface hover:text-primary px-4 py-2 transition-colors">Sign In</button>
+<button class="font-title-md text-title-md text-on-primary bg-primary hover:bg-primary-container shadow-[inset_0_-2px_4px_rgba(0,0,0,0.1)] active:scale-95 transition-all px-6 py-2.5 rounded-lg">List Property</button>
+</div>
+</div>
+</nav>
+<!-- Mobile Header -->
+<nav class="md:hidden fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 h-16 flex items-center justify-between px-margin-mobile">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter">NivasAI</span>
+<button class="text-on-surface">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</nav>
+<main class="flex-grow pt-16 md:pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden px-margin-mobile md:px-margin-desktop py-section">
+<!-- Abstract architectural background element -->
+<div class="absolute right-0 top-0 w-2/3 h-full opacity-20 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
+<div class="w-full h-full bg-cover bg-center rounded-bl-[120px]" data-alt="A minimalist architectural 3d render of intersecting pure white and subtle indigo geometric planes in a bright, ethereal studio lighting. The composition is highly abstract, emphasizing clean lines, empty space, and subtle soft shadows, creating a calm, premium, modern SaaS atmosphere. There are no distracting textures, just smooth matte surfaces." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDc-cexcV2tS6Y7g1lBQxq3J-ZqJKoZ5korlgqzfJYhivLcZLnzWKJFZ0sGCUA9cGNLzrSZMGA3WeOKTAwqQdp6N6VGxo_ym0ql10yQGs6LQ6a6vKavCAmsduEgt6nO2p3oqmpH6mWbv2aPEypGilFRlwZ8eNY4Rrh2JJfI6DbjYCuWCLZbOlflggx23L1VtXdgU_BViUDuKdldEDHao8bgu_HJtgqKpkKZxdRfePHDn-p2mM-AxymwFnf9tr5XvxpkuKq8vu4H5LPz')"></div>
+</div>
+<div class="max-w-container-max mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter relative z-10">
+<div class="lg:col-span-7 flex flex-col justify-center gap-stack-lg pr-0 lg:pr-12">
+<div class="inline-flex items-center gap-2 bg-secondary-container/50 text-primary font-label-caps text-label-caps px-3 py-1 rounded-full w-max border border-primary/10">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        AI-POWERED MATCHING ENGINE 2.0
+                    </div>
+<h1 class="font-display-lg md:text-[64px] md:leading-[72px] md:tracking-[-0.03em] font-extrabold text-on-surface">
+                        Find your perfect property.<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary-container">With zero friction.</span>
+</h1>
+<p class="font-title-md text-title-md text-on-surface-variant font-normal max-w-2xl">
+                        NivasAI analyzes millions of data points to instantly match sophisticated investors and homeowners with architectural masterpieces that fit their exact behavioral profile.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">
+<button class="font-title-md text-title-md text-on-primary bg-primary hover:bg-primary-container shadow-[inset_0_-2px_4px_rgba(0,0,0,0.1)] active:scale-95 transition-all px-8 py-4 rounded-lg flex items-center justify-center gap-2">
+                            Start AI Matching
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="font-title-md text-title-md text-primary bg-surface border border-primary/20 hover:bg-surface-container hover:border-primary/50 transition-all px-8 py-4 rounded-lg flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">play_circle</span>
+                            Watch the Demo
+                        </button>
+</div>
+<div class="flex items-center gap-stack-md pt-stack-lg mt-stack-md border-t border-outline-variant/30 w-max">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high"></div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high"></div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high"></div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+                            Join <strong class="text-on-surface">10,000+</strong> premium investors.
+                        </div>
+</div>
+</div>
+<!-- Hero Interactive Element (Bento-style preview) -->
+<div class="lg:col-span-5 hidden lg:flex relative">
+<div class="w-full relative h-[600px]">
+<!-- Decorative glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-primary/20 blur-[100px] rounded-full"></div>
+<!-- Main Card -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-11/12 bg-surface-container-lowest rounded-[24px] shadow-lift border border-outline-variant/20 overflow-hidden z-20 hover:-translate-y-2 transition-transform duration-500">
+<div class="h-64 relative">
+<img class="w-full h-full object-cover" data-alt="A stunning, modern minimalist villa with expansive floor-to-ceiling glass windows at twilight. The interior is brightly lit with warm lighting, contrasting with the cool blue dusk sky outside. The architecture features clean horizontal lines and a sleek infinity pool in the foreground. The image has a premium, aspirational, high-resolution aesthetic typical of luxury real estate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJvEbuzPgJP6RlMyLoI-YmaGs7ArT8_t6PPqBsJ449MuO9MX_cZ5-USYgYl88yV24Hga_YEy9_CoBFj86aOELaY4nd2fHiJiyF2n5bd34LSr0Ztz86tw1UZJORw72an2CK3Z1r32TYPDptRbXIAtk5jwYli_0pivGTVbrM-bhdVK3jhmYLgIJa8--JusmgzyXYZSph1gYnIli6lZQPCk-tFmhxJqy9QUDQZ6hHibLJqVj9EHrMYA64ZMNPB2ifTAGE_Pla38gmxUI6"/>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-ai-stat text-ai-stat text-on-surface">98% Match</span>
+</div>
+<div class="absolute top-4 left-4 bg-surface-container-lowest/90 backdrop-blur px-2.5 py-1 rounded-sm">
+<span class="font-label-caps text-label-caps text-on-surface">FOR SALE</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface">The Glass Pavilion</h3>
+<span class="font-title-md text-title-md text-on-surface">$4.2M</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Beverly Hills, CA • 4 Beds • 5 Baths</p>
+<div class="space-y-3 pt-4 border-t border-outline-variant/30">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                            Architecture Style
+                                        </span>
+<span class="font-ai-stat text-ai-stat text-on-surface">High Fit</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                            Investment ROI
+                                        </span>
+<span class="font-ai-stat text-ai-stat text-on-surface">Premium</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating elements -->
+<div class="absolute left-0 bottom-24 bg-surface-container-lowest p-4 rounded-xl shadow-lift border border-outline-variant/20 z-30 flex items-center gap-4 animate-[bounce_4s_infinite_ease-in-out]">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">MARKET TREND</p>
+<p class="font-title-md text-title-md text-on-surface">+12.4% Value Est.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant/30 w-full mt-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2 lg:col-span-1">
+<span class="font-title-md text-title-md font-black text-on-surface block mb-stack-sm">NivasAI</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 NivasAI Technologies. Architectural Excellence in Real Estate.</p>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant dark:text-on-secondary-fixed hover:text-primary dark:hover:text-inverse-primary transition-colors hover:opacity-80" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant dark:text-on-secondary-fixed hover:text-primary dark:hover:text-inverse-primary transition-colors hover:opacity-80" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant dark:text-on-secondary-fixed hover:text-primary dark:hover:text-inverse-primary transition-colors hover:opacity-80" href="#">AI Ethics</a>
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant dark:text-on-secondary-fixed hover:text-primary dark:hover:text-inverse-primary transition-colors hover:opacity-80" href="#">Investor Relations</a>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant dark:text-on-secondary-fixed hover:text-primary dark:hover:text-inverse-primary transition-colors hover:opacity-80" href="#">Global Markets</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

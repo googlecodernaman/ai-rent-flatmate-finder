@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html class="h-full antialiased dark:bg-inverse-surface dark:text-inverse-on-surface" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NivasAI - Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "inverse-primary": "#c3c0ff",
+                      "surface-container": "#eceef0",
+                      "on-background": "#191c1e",
+                      "tertiary-fixed": "#e1e0ff",
+                      "secondary-container": "#dae2fd",
+                      "surface-variant": "#e0e3e5",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-tint": "#4d44e3",
+                      "on-primary-fixed": "#0f0069",
+                      "surface": "#f7f9fb",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-container-low": "#f2f4f6",
+                      "secondary-fixed": "#dae2fd",
+                      "on-surface-variant": "#464555",
+                      "surface-dim": "#d8dadc",
+                      "outline-variant": "#c7c4d8",
+                      "on-secondary-container": "#5c647a",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-tertiary-container": "#d9d8ff",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "primary-container": "#4f46e5",
+                      "surface-bright": "#f7f9fb",
+                      "on-surface": "#191c1e",
+                      "on-primary": "#ffffff",
+                      "primary": "#3525cd",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "error": "#ba1a1a",
+                      "secondary": "#565e74",
+                      "inverse-surface": "#2d3133",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "background": "#f7f9fb",
+                      "primary-fixed": "#e2dfff",
+                      "tertiary": "#3130c0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#dad7ff",
+                      "outline": "#777587",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-container": "#4b4dd8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "stack-lg": "32px",
+                      "unit": "4px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "ai-stat": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "ai-stat": [
+                              "14px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          }
+          
+          /* Ambient Shadows */
+          .shadow-level-1 {
+              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+          }
+          .shadow-level-2 {
+              box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+          }
+          
+          /* Custom Scrollbar for Chat */
+          ::-webkit-scrollbar {
+              width: 6px;
+              height: 6px;
+          }
+          ::-webkit-scrollbar-track {
+              background: transparent;
+          }
+          ::-webkit-scrollbar-thumb {
+              background-color: #cbd5e1; /* slate-300 */
+              border-radius: 20px;
+          }
+          .dark ::-webkit-scrollbar-thumb {
+              background-color: #475569; /* slate-600 */
+          }
+      </style>
+</head>
+<body class="h-full bg-surface dark:bg-inverse-surface font-body-md text-body-md text-on-surface dark:text-inverse-on-surface overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- TopNavBar (Fixed Top) - Hiding on Web per mandate, using it as a contextual header if needed, but the prompt implies a full split pane app. 
+             Since SideNavBar is mandated for Top-Level dests, and "Messages" is a tab, we'll implement SideNavBar and hide TopNav. -->
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface flex flex-col py-8 px-4 border-r border-outline-variant/20 shadow-md z-40 hidden md:flex">
+<!-- Brand -->
+<div class="mb-10 px-4">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">NivasAI</h1>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span>My Properties</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span>Matches</span>
+</a>
+<a class="flex items-center gap-stack-md bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-3 transition-transform active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-medium">Messages</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Financials</span>
+</a>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto space-y-2 mb-8">
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/20 transition-all rounded-xl active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+<!-- User Profile & CTA -->
+<div class="px-4 border-t border-outline-variant/20 pt-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden flex-shrink-0">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A clean, professional headshot of an individual representing Alex Rivera in a modern architectural office setting, bright natural light, neutral background, realistic high quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtvEJeZ9t6UsZ2NteDbbOE3EaZN07D24pmVKBknpWG--jyOq4zQVdnWC9qmUz9TNhjdjAwjVFtw2nU_BjYDeu3obuKQCV4EzdW9JJOIOkkQ5ujFTnMcSuxXY8QAIjYbU8aZMD4aUaGyq45dygJg7fR3WUGwbshrvLvbF0uzWz3X-5nJj7cJjmJzu73KXmLZPph8sl3aAwtH-ygSRC7mewiG2H4OTxYdlbmf4FDLKP2hKGQ73h9C5nd-RJ28thuqlCISo5tGVduLVVi"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface dark:text-inverse-on-surface">Alex Rivera</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Premium Investor</div>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container-low text-primary border border-outline-variant/30 rounded-lg font-body-sm text-body-sm font-medium hover:bg-surface-variant transition-colors shadow-sm">
+                    Upgrade to Pro
+                </button>
+</div>
+</nav>
+<!-- Main Content Area (Offset by SideNav on Desktop) -->
+<main class="flex-1 flex md:ml-64 h-screen bg-surface-container-lowest dark:bg-on-background relative overflow-hidden">
+<!-- Mobile Header (Visible only on md:hidden) -->
+<div class="md:hidden absolute top-0 w-full h-16 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 z-30 flex items-center px-4">
+<button class="p-2 -ml-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="ml-2 font-title-md text-title-md font-semibold">Messages</h1>
+</div>
+<!-- Split Pane Layout -->
+<div class="flex w-full h-full pt-16 md:pt-0">
+<!-- Left Pane: Contact List -->
+<div class="w-full md:w-[320px] lg:w-[380px] h-full flex flex-col border-r border-outline-variant/20 bg-surface-bright dark:bg-inverse-surface z-10 flex-shrink-0">
+<!-- Search Header -->
+<div class="p-4 border-b border-outline-variant/20">
+<div class="font-title-md text-title-md font-semibold mb-4 md:hidden">Messages</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/70" style="font-size: 20px;">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-full bg-surface-container-low border border-transparent focus:bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-sm text-body-sm placeholder:text-on-surface-variant/60 outline-none" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<!-- Contact List -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Contact -->
+<div class="px-4 py-3 cursor-pointer bg-primary/5 border-l-2 border-primary hover:bg-primary/10 transition-colors flex items-start gap-3">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shadow-sm border border-outline-variant/10">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female real estate broker named Elena in a bright modern office. Natural lighting, confident smile, realistic corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaGl7gfp7wnlLA_Uez57ZdBS-xK2GOESCv4vJAndcIHO2uowwnAum9WpwTzkadmZ-35_cck0e_Vad7pBOJRft8igD9XaWyqmyXJPPDqmfe2xKjQg1X7LCVpixeyAlNNVv5Rjkq7SDrk_TxRHNlP0-QdvDbPITnIZGNSYPJ_rEpilWGVeIogkSscvK1YUcVtx6kHSjZJ-qVxoxJv-EOIq3lyWG_r2mpyvKEWeibFy8H_mpPkH1ZXI3s_fqpGdNRmDrP6UvX0265MKHV"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-surface-bright"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-md text-body-md font-semibold truncate text-on-surface">Elena Rostova</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">10:42 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">The panoramic views are incredible. Are you available for a showing tomorrow?</p>
+<div class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-medium border border-outline-variant/20">
+<span class="material-symbols-outlined mr-1" style="font-size: 12px;">auto_awesome</span> 92% Match
+                                </div>
+</div>
+</div>
+<!-- Inactive Contact 1 -->
+<div class="px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-colors flex items-start gap-3 border-l-2 border-transparent">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shadow-sm border border-outline-variant/10">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a male property manager in his 40s. Minimalist background, high quality, neutral expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8tI9f36J6aODO1gh0Uke5JfpqEKwlf_CzwklhGrcrhPbzTT6j5MWhTSk2E4mUfg_MIXbuButbSvLk995TjiGXb78NqMNU-yMAHQWXIkUhsHggdArlaEGeuzqbBq48sR1YluqLzz5xCilhdCf96NotwLv8agKuiSJBLHXffxpkjLko73rpdW1eJkHWbELZlyBCjKEuNLYWn4GTvDlD0LTI7VzeWWi4Xtqsrn1sn4UWHETgtZDVUVK8yVWn87_E14DoJNGLjahHJvoM"/>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-md text-body-md font-medium truncate text-on-surface">Marcus Vance</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Yesterday</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">We received the inspection report. Looks solid.</p>
+</div>
+</div>
+<!-- Inactive Contact 2 -->
+<div class="px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-colors flex items-start gap-3 border-l-2 border-transparent">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant shadow-sm border border-outline-variant/10 flex items-center justify-center bg-tertiary-container text-on-tertiary-container font-semibold">
+                                    JW
+                                </div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-on-surface-variant rounded-full border-2 border-surface-bright"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-md text-body-md font-medium truncate text-on-surface">Jordan Wright</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Mon</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate font-medium text-on-surface">Can you clarify the zoning on parcel B?</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Active Conversation & Info -->
+<div class="hidden md:flex flex-1 h-full bg-surface-container-lowest relative flex-col">
+<!-- Chat Header -->
+<div class="h-16 px-6 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-lowest/80 backdrop-blur-sm z-10 flex-shrink-0 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant shadow-sm border border-outline-variant/10">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female real estate broker named Elena in a bright modern office. Natural lighting, confident smile, realistic corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNwST1U_OO3KGs5uksDdEKVjQr6YGV2TzxZbkTtJVQ7xb66l-Gndd04YPLqXA_jmYjcP89G7o8R8k8xXKFwRZDHKAvwuCoJ28ikGZJ_JfK8Q1UUDXxZ-hXoSPWtIn9Qbrk4WTlfpB8opxNWwGizXXSqcL1V55DyZG5WOiMdLZAM-LAN2OQmV6XHcN5NKbaAkpASTfZk-Pq4aMISZV_99kN4dq_-YOljbk2ye2QZKkAwFwLIf7h4EXqs7Gs4e1yBG6o-kwpXugrJNUi"/>
+</div>
+<div>
+<h2 class="font-body-md text-body-md font-semibold text-on-surface m-0 leading-tight">Elena Rostova</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Listing Agent • 430 Peak Road</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors" title="View Property">
+<span class="material-symbols-outlined">domain</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors" title="AI Match Details">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Main Chat Area & Right Panel Layout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Messages Area -->
+<div class="flex-1 flex flex-col h-full bg-[#f8fafc] dark:bg-[#1e293b]">
+<!-- Scrollable Messages -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Date Divider -->
+<div class="flex items-center justify-center my-4">
+<span class="px-3 py-1 bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps rounded-full shadow-sm border border-outline-variant/10">TODAY</span>
+</div>
+<!-- Message from recipient (Neutral) -->
+<div class="flex gap-3 max-w-[80%]">
+<div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 mt-1 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female real estate broker named Elena in a bright modern office. Natural lighting, confident smile, realistic corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxM1Kzau6QXNVARB3o7P5Ct0ngqChjtN11gAjK5tRXHZwOXPHgBHqsARbIBeO3e_gSnFpNX43j9hW13NcYHAwxcGU5LWm95xAi8_qNTp8HV8aKwXCfe6jlaeDC4_hbCJv-j3cw-ESQWD3wqSsrLYI39J6nQyXgzc58o8cNnixBvgHWZ5E2yTq7kO6prunAXaER7vMo1xzOVZDAgoPR7zM77AH6vOVfte3cK4-PEl4DK3Kj8jOzGgZ0sEZYxhe2PDQRknyNF4D3Atdk"/>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[12px] font-medium text-on-surface-variant ml-1">Elena Rostova <span class="font-normal text-on-surface-variant/60 ml-2">10:30 AM</span></span>
+<div class="bg-surface-container-lowest border border-outline-variant/20 text-on-surface px-4 py-3 rounded-2xl rounded-tl-sm shadow-level-1 font-body-sm text-body-sm leading-relaxed">
+                                            Hi Alex, I noticed NivasAI flagged the 430 Peak Road property as a 92% match for your portfolio parameters. I've just uploaded the virtual tour.
+                                        </div>
+</div>
+</div>
+<!-- Message from recipient (Neutral) - Follow up -->
+<div class="flex gap-3 max-w-[80%] ml-11">
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container-lowest border border-outline-variant/20 text-on-surface px-4 py-3 rounded-2xl rounded-tl-sm shadow-level-1 font-body-sm text-body-sm leading-relaxed">
+                                            The panoramic views are incredible. Are you available for a showing tomorrow?
+                                        </div>
+</div>
+</div>
+<!-- AI Insight Injection (in chat stream) -->
+<div class="mx-auto max-w-lg my-6 bg-secondary-container/30 border border-primary/20 rounded-xl p-4 shadow-sm flex gap-3 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<div>
+<h4 class="font-ai-stat text-ai-stat text-primary mb-1">AI Context: 430 Peak Road</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">This property aligns strongly with your historical preference for high-elevation modernism and offers a projected 14% IRR over 5 years based on current zoning changes.</p>
+<button class="text-[12px] font-medium text-primary hover:underline border border-primary/30 rounded px-2 py-1 bg-surface-container-lowest">View Full Analysis</button>
+</div>
+</div>
+<!-- Message from user (Indigo) -->
+<div class="flex gap-3 max-w-[80%] ml-auto justify-end">
+<div class="flex flex-col gap-1 items-end">
+<span class="text-[12px] font-medium text-on-surface-variant mr-1">10:45 AM</span>
+<div class="bg-primary text-on-primary px-4 py-3 rounded-2xl rounded-tr-sm shadow-level-2 font-body-sm text-body-sm leading-relaxed relative">
+<div class="absolute inset-0 bg-black/5 rounded-2xl rounded-tr-sm mix-blend-multiply pointer-events-none"></div> <!-- Tactile inner shadow effect -->
+                                            Thanks Elena. The AI breakdown looks promising, especially the IRR projection. 
+                                        </div>
+</div>
+</div>
+<!-- Message from user (Indigo) - Follow up -->
+<div class="flex gap-3 max-w-[80%] ml-auto justify-end mr-11">
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-primary text-on-primary px-4 py-3 rounded-2xl rounded-tr-sm shadow-level-2 font-body-sm text-body-sm leading-relaxed relative">
+<div class="absolute inset-0 bg-black/5 rounded-2xl rounded-tr-sm mix-blend-multiply pointer-events-none"></div>
+                                            Tomorrow at 2PM works for me. Can you send the zoning doc before then?
+                                        </div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant/20 flex-shrink-0">
+<div class="relative flex items-center bg-surface-container-low rounded-xl border border-outline-variant/30 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/50 transition-all shadow-sm">
+<button class="p-3 text-on-surface-variant hover:text-primary transition-colors flex-shrink-0">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md py-3 outline-none text-on-surface placeholder:text-on-surface-variant/60" placeholder="Type a message..." type="text"/>
+<div class="flex items-center pr-2 gap-1 flex-shrink-0">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="p-2 bg-primary text-on-primary rounded-lg hover:bg-on-primary-fixed-variant transition-colors shadow-sm ml-1">
+<span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+</button>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-center text-on-surface-variant/60 font-label-caps text-label-caps">
+                                    Shift + Enter to add a new line. Protected by NivasAI Encryption.
+                                </div>
+</div>
+</div>
+<!-- AI Match Info Panel (Right Drawer) - Glassmorphism -->
+<div class="w-[300px] xl:w-[340px] border-l border-outline-variant/20 bg-surface-container-lowest/60 backdrop-blur-xl hidden lg:flex flex-col shadow-[-4px_0_15px_-3px_rgb(0_0_0_/_0.05)] border-t-2 border-t-tertiary-container relative z-10 flex-shrink-0 overflow-y-auto">
+<div class="p-5 border-b border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-title-md text-title-md font-semibold text-on-surface m-0">Match Intelligence</h3>
+</div>
+<div class="p-5 space-y-6">
+<!-- Match Score Ring (Simulated) -->
+<div class="flex flex-col items-center justify-center p-4 bg-surface rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-tertiary-container/5"></div>
+<div class="w-24 h-24 rounded-full border-4 border-green-500/20 border-t-green-500 flex items-center justify-center mb-3 relative z-10 shadow-inner">
+<div class="text-center">
+<div class="font-headline-lg text-headline-lg font-bold text-green-600 leading-none">92<span class="text-lg">%</span></div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-[9px] mt-1">SYNERGY</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-center text-on-surface-variant relative z-10">
+                                        High confidence match based on architectural style and ROI history.
+                                    </p>
+</div>
+<!-- Property Snapshot Card -->
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-3">SUBJECT PROPERTY</h4>
+<div class="bg-surface rounded-xl border border-outline-variant/20 overflow-hidden shadow-sm group cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-28 bg-surface-variant relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A striking minimalist architectural luxury home on a hill. High-key lighting, bright day, vast glass windows, pristine white concrete, deep blacks, modern aesthetic, highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSd-lYoMW-WPAOdnwM7zT0hZLQJ879dE6p0bomA_nbGLWJt2Dh_pUWv8wBRDFjjVp4eSjTq_3OlJ8DkLB92AEyMEusSVqEAvfDaoA35gKq11_VC5ooT7OOtgM7QlEeaBN2q1idmRzNAKs3gfSgZIjqIDH-TdNvGt8KvbYV_65uwI5q_T4w-QR9BBeRuJUu3NkboXM8AjDun5jJdYGJqFzSpRCI38C0XCeyn9j-0Zp8qDcZr5lKvdQvnp-L4qvJ5EajlHBfGt4Zi6wt"/>
+<div class="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white font-label-caps text-label-caps px-2 py-0.5 rounded text-[10px]">FOR SALE</div>
+</div>
+<div class="p-3">
+<div class="font-ai-stat text-ai-stat text-on-surface truncate">430 Peak Road, Aspen</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex justify-between">
+<span>$4.2M</span>
+<span>14% Proj. IRR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Match Factors -->
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-3">KEY VECTORS</h4>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-green-600 text-[14px]">check</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm font-medium text-on-surface">Architectural Fit</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Matches "Minimalist" preference.</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-green-600 text-[14px]">check</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm font-medium text-on-surface">Financial Target</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Exceeds 12% IRR baseline.</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-blue-600 text-[14px]">info</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm font-medium text-on-surface">Timeline Risk</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Zoning approval pending (est. 45 days).</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action -->
+<div class="pt-2">
+<button class="w-full py-2.5 rounded-lg border border-primary text-primary font-body-sm text-body-sm font-medium hover:bg-primary/5 transition-all shadow-sm flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">description</span>
+                                        Generate Deal Brief
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

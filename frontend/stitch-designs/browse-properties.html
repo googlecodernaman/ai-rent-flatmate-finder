@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NivasAI - Browse Properties</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "inverse-primary": "#c3c0ff",
+                      "surface-container": "#eceef0",
+                      "on-background": "#191c1e",
+                      "tertiary-fixed": "#e1e0ff",
+                      "secondary-container": "#dae2fd",
+                      "surface-variant": "#e0e3e5",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-tint": "#4d44e3",
+                      "on-primary-fixed": "#0f0069",
+                      "surface": "#f7f9fb",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-container-low": "#f2f4f6",
+                      "secondary-fixed": "#dae2fd",
+                      "on-surface-variant": "#464555",
+                      "surface-dim": "#d8dadc",
+                      "outline-variant": "#c7c4d8",
+                      "on-secondary-container": "#5c647a",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-tertiary-container": "#d9d8ff",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "primary-container": "#4f46e5",
+                      "surface-bright": "#f7f9fb",
+                      "on-surface": "#191c1e",
+                      "on-primary": "#ffffff",
+                      "primary": "#3525cd",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "error": "#ba1a1a",
+                      "secondary": "#565e74",
+                      "inverse-surface": "#2d3133",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "background": "#f7f9fb",
+                      "primary-fixed": "#e2dfff",
+                      "tertiary": "#3130c0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#dad7ff",
+                      "outline": "#777587",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-container": "#4b4dd8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "stack-lg": "32px",
+                      "unit": "4px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "ai-stat": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "ai-stat": [
+                              "14px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #f7f9fb; /* Slate-50 base */
+            color: #191c1e;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .card-hover-shadow:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .ai-glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+      </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-container-high/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-container-max mx-auto h-20">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg font-bold text-primary dark:text-inverse-primary tracking-tighter cursor-pointer">NivasAI</span>
+<!-- Search (Command-K style) -->
+<div class="hidden lg:flex relative ml-8 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="pl-10 pr-4 py-2 w-80 bg-surface-container-lowest border border-outline-variant rounded-full font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all" placeholder="Search markets, properties, or AI insights..." type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-outline font-label-caps text-label-caps bg-surface-container px-1.5 py-0.5 rounded">⌘K</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-title-md text-title-md" href="#">Browse</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Marketplace</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Dashboards</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Insights</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2">
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-container rounded-lg transition-all active:scale-95 duration-200 cursor-pointer p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-container rounded-lg transition-all active:scale-95 duration-200 cursor-pointer p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">chat_bubble</span>
+</button>
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-container rounded-lg transition-all active:scale-95 duration-200 cursor-pointer p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</div>
+<button class="hidden lg:block font-ai-stat text-ai-stat px-4 py-2 text-on-surface bg-surface-container-low hover:bg-surface-variant rounded-lg transition-colors active:scale-95">Sign In</button>
+<button class="font-ai-stat text-ai-stat px-4 py-2 bg-primary text-on-primary rounded-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-primary/90 transition-colors active:scale-95">List Property</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-20 flex">
+<!-- Left Sidebar (Filters) -->
+<aside class="hidden lg:flex flex-col w-72 h-[calc(100vh-80px)] sticky top-20 bg-surface dark:bg-inverse-surface border-r border-outline-variant/20 overflow-y-auto px-6 py-8 gap-8 shrink-0">
+<div class="flex items-center justify-between">
+<h2 class="font-title-md text-title-md text-on-surface">Filters</h2>
+<button class="text-primary font-body-sm text-body-sm hover:underline">Reset</button>
+</div>
+<!-- AI Filter Section -->
+<div class="p-4 rounded-xl border border-primary/20 bg-primary/5 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-tertiary"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-ai-stat text-ai-stat text-on-surface">AI Match Settings</h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="font-body-sm text-body-sm text-on-surface-variant flex justify-between mb-1">
+<span>Minimum Match Score</span>
+<span class="font-ai-stat text-primary">85%</span>
+</label>
+<input class="w-full accent-primary" max="100" min="0" type="range" value="85"/>
+</div>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Prioritize High ROI</span>
+</label>
+</div>
+</div>
+<!-- Standard Filters -->
+<div class="space-y-6">
+<!-- Location -->
+<div>
+<h3 class="font-ai-stat text-ai-stat text-on-surface mb-2">Location</h3>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">location_on</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all" type="text" value="San Francisco, CA"/>
+</div>
+</div>
+<!-- Price Range -->
+<div>
+<h3 class="font-ai-stat text-ai-stat text-on-surface mb-2">Price Range</h3>
+<div class="flex gap-2 items-center">
+<input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:border-primary" placeholder="Min" type="text"/>
+<span class="text-outline-variant">-</span>
+<input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:border-primary" placeholder="Max" type="text"/>
+</div>
+</div>
+<!-- Property Type -->
+<div>
+<h3 class="font-ai-stat text-ai-stat text-on-surface mb-2">Property Type</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Single Family</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Multi-Family</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Condo / Townhouse</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Commercial</span>
+</label>
+</div>
+</div>
+<!-- Amenities -->
+<div>
+<h3 class="font-ai-stat text-ai-stat text-on-surface mb-2">Key Features</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 border border-primary bg-primary/5 text-primary rounded-full font-label-caps text-label-caps transition-colors">Pool</button>
+<button class="px-3 py-1.5 border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary rounded-full font-label-caps text-label-caps transition-colors">Smart Home</button>
+<button class="px-3 py-1.5 border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary rounded-full font-label-caps text-label-caps transition-colors">Solar</button>
+<button class="px-3 py-1.5 border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary rounded-full font-label-caps text-label-caps transition-colors">Renovated</button>
+</div>
+</div>
+</div>
+<button class="mt-auto w-full font-ai-stat text-ai-stat px-4 py-3 bg-primary text-on-primary rounded-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-primary/90 transition-colors active:scale-95">Apply 12 Filters</button>
+</aside>
+<!-- Canvas (Property Grid) -->
+<section class="flex-grow p-6 md:p-8 lg:p-margin-desktop bg-surface-container-lowest">
+<!-- View Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">AI Recommendations</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">24 properties match your investment profile.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex bg-surface-container-low rounded-lg p-1">
+<button class="p-2 bg-surface-container-lowest rounded shadow-sm text-primary flex items-center justify-center"><span class="material-symbols-outlined text-sm">grid_view</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-sm">view_list</span></button>
+</div>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-body-sm px-4 py-2 focus:outline-none focus:border-primary">
+<option>Sort by: Match Score</option>
+<option>Price: High to Low</option>
+<option>Price: Low to High</option>
+<option>Newest</option>
+</select>
+</div>
+</div>
+<!-- Bento/Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Card 1 (High Match) -->
+<article class="bg-surface-container-lowest rounded-[16px] card-shadow card-hover-shadow border border-outline-variant/30 hover:border-outline-variant transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern architectural single-family home exterior in San Francisco, featuring expansive glass windows, minimal landscaping, and clear blue skies, establishing a premium real estate aesthetic in soft daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVzI4yOq_xbro37hoxxIItKxAEjC-_MTIvqQuAbEm8Q0-qhktK6t7O-4Or0cYrSlDeMpOjRpkFuJreJTMzwNjUrC38ual98_EtWnJCVNna46vr6VJshXjylQnn-KnGF_UU7caIf3n2NQqDpGXNZqVARKShg3oYBMqTydrBlCOQTKp6QBPnEbPJhtpAIHxMQHhBfyVPk_Li065LGgjHP31DClfw2eo3ctiYdrjmQxJhReX3EsrTlhC4EVOLE5sKDPos2OY8V1bkBCnb"/>
+<div class="absolute top-4 left-4 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded font-label-caps text-label-caps text-on-surface">FOR SALE</div>
+<!-- Match Score Badge -->
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1.5 rounded-full font-ai-stat text-ai-stat flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            98% Match
+                        </div>
+</div>
+<div class="p-5 flex flex-col flex-grow relative">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface">$2,450,000</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite_border</span></button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">4 Beds • 3 Baths • 2,800 sqft</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 truncate">1248 Vista Point, San Francisco, CA</p>
+<!-- AI Insight Snippet -->
+<div class="mt-auto bg-primary/5 border border-primary/10 rounded-lg p-3 flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5">insights</span>
+<p class="font-body-sm text-body-sm text-on-surface text-sm">Predicted 12% value appreciation in next 24 months based on upcoming neighborhood zoning changes.</p>
+</div>
+</div>
+</article>
+<!-- Card 2 (Solid Match) -->
+<article class="bg-surface-container-lowest rounded-[16px] card-shadow card-hover-shadow border border-outline-variant/30 hover:border-outline-variant transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, newly renovated condominium interior showcasing a bright, minimalist living room with hardwood floors, high-end fixtures, and a neutral color palette, conveying a luxurious urban living space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXPL65UY9quNRz-LNAjiQhCJa_PD3se7RtiPkTdLHbDMaClYFxmerEQrGCZGrfLiI6vg67RghEESU6msy-o4x9IXIBUKZONjNa_Bf2vE0IdL7TN5ubbrL6v30IDC8PggI84xe__6jc9Ip9Xin-RdFQTYKRSL4Cwo9XjebMCT-38hX2gFdyJ7hbjBeS_NO5KBQYScockWlpiL-wEVcede5yp3RprdTgmnI2ufsDHSM8kL5jsVJqXEuR_mMC_cSBdCLME7iptFLJ1ZPX"/>
+<div class="absolute top-4 left-4 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded font-label-caps text-label-caps text-on-surface">FOR SALE</div>
+<!-- Match Score Badge (Blue/Info) -->
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container px-3 py-1.5 rounded-full font-ai-stat text-ai-stat flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            82% Match
+                        </div>
+</div>
+<div class="p-5 flex flex-col flex-grow relative">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface">$1,150,000</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite_border</span></button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">2 Beds • 2 Baths • 1,200 sqft</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 truncate">550 Market St Apt 4B, San Francisco, CA</p>
+<!-- AI Insight Snippet -->
+<div class="mt-auto bg-surface-container-low rounded-lg p-3 flex items-start gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm mt-0.5">monitoring</span>
+<p class="font-body-sm text-body-sm text-on-surface text-sm">Strong rental yield potential. Comparable units renting for $4,500/mo.</p>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="font-ai-stat text-ai-stat px-6 py-2 border border-outline-variant bg-surface-container-lowest text-on-surface rounded-full hover:border-primary hover:text-primary transition-colors">Load More Properties</button>
+</div>
+</section>
+</main>
+</body></html>
