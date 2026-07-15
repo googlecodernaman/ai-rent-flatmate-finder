@@ -41,13 +41,14 @@ app.get('/api/health', (req, res) => {
 const authRoutes = require('./routes/auth.routes');
 const tenantProfileRoutes = require('./routes/tenantProfile.routes');
 const listingRoutes = require('./routes/listing.routes');
+const compatibilityRoutes = require('./routes/compatibility.routes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tenant-profile', tenantProfileRoutes);
 app.use('/api/listings', listingRoutes);
+app.use('/api/compatibility', compatibilityRoutes);
 
 // Routes will be added here as they are implemented:
-// app.use('/api/compatibility', compatibilityRoutes);
 // app.use('/api/interests', interestRoutes);
 // app.use('/api/chats', chatRoutes);
 // app.use('/api/admin', adminRoutes);

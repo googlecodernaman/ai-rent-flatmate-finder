@@ -1,5 +1,6 @@
 const prisma = require('../lib/prisma');
 const { AppError } = require('../middleware/errorHandler');
+const { scoreAllListingsForTenant } = require('./batchScoring.service');
 
 /**
  * Create a tenant profile for the authenticated user.
@@ -50,6 +51,9 @@ async function createProfile(tenantId, data) {
       updatedAt: true,
     },
   });
+
+  // Fire-and-forget: compute scores for all active listings
+  scoreAllListingsForTenant(profile.userId).catch(console.error);
 
   return profile;
 }
@@ -139,6 +143,9 @@ async function updateProfile(tenantId, data) {
       updatedAt: true,
     },
   });
+
+  // Fire-and-forget: recompute scores for all active listings
+  scoreAllListingsForTenant(tenantId).catch(console.error);
 
   return profile;
 }

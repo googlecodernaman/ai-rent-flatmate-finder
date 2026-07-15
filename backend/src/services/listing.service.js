@@ -1,5 +1,6 @@
 const prisma = require('../lib/prisma');
 const { AppError } = require('../middleware/errorHandler');
+const { scoreAllTenantsForListing, invalidateAndRescore } = require('./batchScoring.service');
 
 // Fields whose edits invalidate compatibility scores (used in Task 8)
 const MATERIAL_FIELDS = new Set(['rent', 'location', 'roomType', 'furnishingStatus']);
@@ -24,6 +25,9 @@ async function createListing(ownerId, data, files = []) {
     },
     select: listingSelectFields(),
   });
+
+  // Fire-and-forget: compute scores for all tenants with profiles
+  scoreAllTenantsForListing(listing.id).catch(console.error);
 
   return listing;
 }
@@ -101,6 +105,11 @@ async function updateListing(listingId, ownerId, data, files = []) {
     select: listingSelectFields(),
   });
 
+  // Fire-and-forget: if material fields changed, invalidate+rescore
+  if (materialFieldChanged) {
+    invalidateAndRescore(listingId).catch(console.error);
+  }
+
   return { listing, materialFieldChanged };
 }
 
@@ -134,9 +143,11 @@ async function markFilled(listingId, ownerId) {
 
 /**
  * Browse active (non-filled) listings with optional filters and pagination.
- * Score joining is added in Task 9.
+ * If tenantId is provided, joins compatibility scores and sorts by score desc.
+ *
+ * @param {object} opts - { location, budgetMin, budgetMax, page, limit, tenantId }
  */
-async function browseListings({ location, budgetMin, budgetMax, page = 1, limit = 20 }) {
+async function browseListings({ location, budgetMin, budgetMax, page = 1, limit = 20, tenantId }) {
   const skip = (page - 1) * limit;
   const where = { isFilled: false };
 
@@ -159,6 +170,40 @@ async function browseListings({ location, budgetMin, budgetMax, page = 1, limit 
     }),
     prisma.listing.count({ where }),
   ]);
+
+  // Join compatibility scores for this tenant if available
+  if (tenantId && listings.length > 0) {
+    const listingIds = listings.map((l) => l.id);
+    const scores = await prisma.compatibilityScore.findMany({
+      where: { tenantId, listingId: { in: listingIds } },
+      select: { listingId: true, score: true, isFallback: true },
+    });
+
+    const scoreMap = new Map(scores.map((s) => [s.listingId, s]));
+
+    // Attach score to each listing
+    const withScores = listings.map((l) => {
+      const scoreRow = scoreMap.get(l.id);
+      return {
+        ...l,
+        compatibilityScore: scoreRow ? scoreRow.score : null,
+        scoreFallback: scoreRow ? scoreRow.isFallback : null,
+      };
+    });
+
+    // Sort: scored listings first (desc by score), unscored after
+    withScores.sort((a, b) => {
+      if (a.compatibilityScore === null && b.compatibilityScore === null) return 0;
+      if (a.compatibilityScore === null) return 1;
+      if (b.compatibilityScore === null) return -1;
+      return b.compatibilityScore - a.compatibilityScore;
+    });
+
+    return {
+      data: withScores,
+      pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+    };
+  }
 
   return {
     data: listings,

@@ -55,6 +55,7 @@ async function browseListings(req, res, next) {
       budgetMax,
       page,
       limit,
+      tenantId: req.user.id,
     });
     res.status(200).json(result);
   } catch (err) { next(err); }
