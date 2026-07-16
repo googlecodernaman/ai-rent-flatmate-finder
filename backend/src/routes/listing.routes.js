@@ -15,6 +15,7 @@ const ROOM_TYPES = ['SINGLE', 'SHARED', 'STUDIO'];
 const FURNISHING_STATUSES = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
 
 const createListingSchema = z.object({
+  intent: z.enum(['ENTIRE_PROPERTY', 'ROOMMATE']).default('ENTIRE_PROPERTY'),
   title: z.string().min(3).max(200),
   description: z.string().max(2000).optional(),
   location: z.string().min(2).max(200),
@@ -25,6 +26,7 @@ const createListingSchema = z.object({
 });
 
 const updateListingSchema = z.object({
+  intent: z.enum(['ENTIRE_PROPERTY', 'ROOMMATE']).optional(),
   title: z.string().min(3).max(200).optional(),
   description: z.string().max(2000).optional(),
   location: z.string().min(2).max(200).optional(),

@@ -74,13 +74,6 @@ export default function ManageListings() {
                       <h3 className="text-body-md font-semibold text-on-surface truncate">{listing.title}</h3>
                       <p className="text-body-sm text-on-surface-variant text-[12px]">{listing.location}</p>
                     </div>
-                    <button
-                      onClick={() => handleDelete(listing.id)}
-                      disabled={actionLoading === listing.id}
-                      className="p-2 text-on-surface-variant hover:text-error rounded-lg hover:bg-surface-container transition-colors shrink-0"
-                    >
-                      <span className="material-symbols-outlined text-[18px]">delete</span>
-                    </button>
                   </div>
                   <div className="flex items-center gap-3 mt-2 flex-wrap">
                     <RoomTypeBadge type={listing.roomType} />

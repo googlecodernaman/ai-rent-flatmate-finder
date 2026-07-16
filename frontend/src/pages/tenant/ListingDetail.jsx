@@ -24,19 +24,30 @@ export default function ListingDetail() {
       try {
         const { data } = await api.get(`/listings/${id}`)
         setListing(data)
-        // Check existing interest
-        if (user?.role === 'TENANT') {
-          try {
-            const { data: interests } = await api.get('/interests/my')
-            const existing = interests.data?.find((i) => i.listingId === id)
-            if (existing) setInterestStatus(existing.status)
-          } catch {}
+          // Check existing interest and get compatibility score
+          if (user?.role === 'TENANT') {
+            try {
+              const [interestsRes, scoreRes] = await Promise.all([
+                api.get('/interests'),
+                api.get(`/compatibility/${id}`)
+              ])
+              const arr = Array.isArray(interestsRes.data) ? interestsRes.data : []
+              const existing = arr.find((i) => i.listingId === id)
+              if (existing) setInterestStatus(existing.status)
+
+              data.compatibilityScore = scoreRes.data.score
+              data.scoreFallback = scoreRes.data.isFallback
+              data.scoreExplanation = scoreRes.data.explanation
+            } catch (e) {
+              console.error('Failed to load extra tenant details', e)
+            }
+          }
+          setListing(data)
+        } catch (e) {
+          setError(e.response?.data?.error?.message || 'Listing not found')
+        } finally {
+          setLoading(false)
         }
-      } catch (e) {
-        setError(e.response?.data?.error?.message || 'Listing not found')
-      } finally {
-        setLoading(false)
-      }
     }
     load()
   }, [id, user])
@@ -128,6 +139,16 @@ export default function ListingDetail() {
               <div className="mb-6">
                 <h2 className="text-title-md font-semibold text-on-surface mb-2">About this room</h2>
                 <p className="text-body-md text-on-surface-variant whitespace-pre-line">{listing.description}</p>
+              </div>
+            )}
+
+            {user?.role === 'TENANT' && listing.scoreExplanation && (
+              <div className="mb-6 p-4 bg-primary-container/20 rounded-lg border border-primary/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="material-symbols-outlined text-primary text-[20px]">auto_awesome</span>
+                  <h2 className="text-title-sm font-semibold text-primary font-mono tracking-tight uppercase">AI Match Analysis</h2>
+                </div>
+                <p className="text-body-sm text-on-surface-variant italic">"{listing.scoreExplanation}"</p>
               </div>
             )}
 

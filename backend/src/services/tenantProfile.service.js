@@ -35,6 +35,7 @@ async function createProfile(tenantId, data) {
   const profile = await prisma.tenantProfile.create({
     data: {
       userId: tenantId,
+      intent: data.intent,
       preferredLocation: data.preferredLocation,
       budgetMin: data.budgetMin,
       budgetMax: data.budgetMax,
@@ -43,6 +44,7 @@ async function createProfile(tenantId, data) {
     select: {
       id: true,
       userId: true,
+      intent: true,
       preferredLocation: true,
       budgetMin: true,
       budgetMax: true,
@@ -70,6 +72,7 @@ async function getProfile(tenantId) {
     select: {
       id: true,
       userId: true,
+      intent: true,
       preferredLocation: true,
       budgetMin: true,
       budgetMax: true,
@@ -124,6 +127,7 @@ async function updateProfile(tenantId, data) {
   }
 
   const updateData = {};
+  if (data.intent !== undefined) updateData.intent = data.intent;
   if (data.preferredLocation !== undefined) updateData.preferredLocation = data.preferredLocation;
   if (data.budgetMin !== undefined) updateData.budgetMin = data.budgetMin;
   if (data.budgetMax !== undefined) updateData.budgetMax = data.budgetMax;
@@ -135,6 +139,7 @@ async function updateProfile(tenantId, data) {
     select: {
       id: true,
       userId: true,
+      intent: true,
       preferredLocation: true,
       budgetMin: true,
       budgetMax: true,

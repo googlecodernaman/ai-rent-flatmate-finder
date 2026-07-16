@@ -33,10 +33,10 @@ export default function OwnerDashboard() {
       try {
         const [listRes, intRes] = await Promise.all([
           api.get('/listings/my'),
-          api.get('/interests/received?limit=5'),
+          api.get('/interests/received')
         ])
-        setListings(listRes.data.data || [])
-        setInterests(intRes.data.data || [])
+        setListings(Array.isArray(listRes.data) ? listRes.data : (listRes.data.data || []))
+        setInterests(Array.isArray(intRes.data) ? intRes.data : (intRes.data.data || []))
       } catch (e) {
         setError(e.response?.data?.error?.message || 'Failed to load')
       } finally {

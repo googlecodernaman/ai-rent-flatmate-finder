@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
-import { useAuth } from '../../contexts/AuthContext'
-import api from '../../lib/api'
-import { PageLoader, EmptyState } from '../../components/ui/States'
+import { useAuth } from '../contexts/AuthContext'
+import api from '../lib/api'
+import { PageLoader, EmptyState } from '../components/ui/States'
 import { format, isToday, isYesterday } from 'date-fns'
 import toast from 'react-hot-toast'
 import clsx from 'clsx'
@@ -38,10 +38,10 @@ export default function Chat() {
   useEffect(() => {
     const load = async () => {
       try {
-        // For tenant: my accepted interests; for owner: received accepted interests
-        const endpoint = user.role === 'TENANT' ? '/interests/my' : '/interests/received'
+        const endpoint = user.role === 'TENANT' ? '/interests' : '/interests/received'
         const { data } = await api.get(endpoint)
-        const accepted = (data.data || []).filter((i) => i.status === 'ACCEPTED')
+        const arr = Array.isArray(data) ? data : (data.data || [])
+        const accepted = arr.filter((i) => i.status === 'ACCEPTED')
         setConversations(accepted)
         if (accepted.length > 0) setActiveConv(accepted[0])
       } catch (e) {

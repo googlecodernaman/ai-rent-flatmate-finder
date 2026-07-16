@@ -14,8 +14,8 @@ export default function MyInterests() {
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await api.get('/interests/my')
-        setInterests(data.data || [])
+        const { data } = await api.get('/interests')
+        setInterests(Array.isArray(data) ? data : [])
       } catch (e) {
         setError(e.response?.data?.error?.message || 'Failed to load')
       } finally {

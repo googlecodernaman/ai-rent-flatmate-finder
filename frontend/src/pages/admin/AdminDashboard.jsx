@@ -26,10 +26,10 @@ export default function AdminDashboard() {
   if (error) return <div className="p-margin-desktop"><ErrorState message={error} /></div>
 
   const cards = [
-    { icon: 'people', label: 'Total Users', value: stats?.users?.total ?? '—', sub: `${stats?.users?.tenants ?? 0} tenants · ${stats?.users?.owners ?? 0} owners` },
-    { icon: 'domain', label: 'Total Listings', value: stats?.listings?.total ?? '—', sub: `${stats?.listings?.active ?? 0} active · ${stats?.listings?.filled ?? 0} filled` },
-    { icon: 'favorite', label: 'Total Interests', value: stats?.interests?.total ?? '—', sub: `${stats?.interests?.accepted ?? 0} accepted` },
-    { icon: 'auto_awesome', label: 'AI Scores', value: stats?.scores?.total ?? '—', sub: `${stats?.scores?.pending ?? 0} pending scoring`, highlight: true },
+    { icon: 'people', label: 'Total Users', value: stats?.users ?? '—', sub: 'Registered accounts' },
+    { icon: 'domain', label: 'Total Listings', value: stats?.listings ?? '—', sub: 'Platform properties' },
+    { icon: 'favorite', label: 'Total Interests', value: stats?.interests ?? '—', sub: 'Connection requests' },
+    { icon: 'auto_awesome', label: 'AI Scores', value: stats?.scores ?? '—', sub: 'Computed matches', highlight: true },
   ]
 
   return (

@@ -66,11 +66,11 @@ async function main() {
   ]);
 
   const tenantData = [
-    { name: 'Sneha Patel', email: 'sneha@example.com', location: 'Koramangala', min: 10000, max: 20000 },
-    { name: 'Vikram Das', email: 'vikram@example.com', location: 'Indiranagar', min: 15000, max: 25000 },
-    { name: 'Divya Menon', email: 'divya@example.com', location: 'HSR Layout', min: 8000, max: 15000 },
-    { name: 'Rohan Joshi', email: 'rohan@example.com', location: 'Whitefield', min: 20000, max: 35000 },
-    { name: 'Aisha Khan', email: 'aisha@example.com', location: 'BTM Layout', min: 12000, max: 22000 },
+    { name: 'Sneha Patel', email: 'sneha@example.com', location: 'Koramangala', min: 10000, max: 20000, intent: 'ENTIRE_PROPERTY' },
+    { name: 'Vikram Das', email: 'vikram@example.com', location: 'Indiranagar', min: 15000, max: 25000, intent: 'ROOMMATE' },
+    { name: 'Divya Menon', email: 'divya@example.com', location: 'HSR Layout', min: 8000, max: 15000, intent: 'ROOMMATE' },
+    { name: 'Rohan Joshi', email: 'rohan@example.com', location: 'Whitefield', min: 20000, max: 35000, intent: 'ENTIRE_PROPERTY' },
+    { name: 'Aisha Khan', email: 'aisha@example.com', location: 'BTM Layout', min: 12000, max: 22000, intent: 'ROOMMATE' },
   ];
 
   const tenants = [];
@@ -82,6 +82,7 @@ async function main() {
     const profile = await prisma.tenantProfile.create({
       data: {
         userId: user.id,
+        intent: t.intent,
         preferredLocation: t.location,
         budgetMin: t.min,
         budgetMax: t.max,
@@ -89,27 +90,38 @@ async function main() {
       },
     });
     tenants.push(user);
-    profiles.push({ ...profile, preferredLocation: t.location, budgetMin: t.min, budgetMax: t.max });
+    profiles.push({ ...profile, intent: t.intent, preferredLocation: t.location, budgetMin: t.min, budgetMax: t.max });
   }
   console.log('  ✓ Users & tenant profiles created');
 
   // ── Listings ────────────────────────────────────────────────────────
   const listingData = [
-    { ownerId: owner1.id, title: 'Cozy Studio in Koramangala', location: 'Koramangala', rent: 15000, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
-    { ownerId: owner1.id, title: 'Single Room near Indiranagar Metro', location: 'Indiranagar', rent: 18000, roomType: 'SINGLE', furnishingStatus: 'SEMI_FURNISHED' },
-    { ownerId: owner1.id, title: 'Shared Room in BTM Layout', location: 'BTM Layout', rent: 9000, roomType: 'SHARED', furnishingStatus: 'UNFURNISHED' },
-    { ownerId: owner2.id, title: 'Furnished Studio HSR Layout', location: 'HSR Layout', rent: 13000, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
-    { ownerId: owner2.id, title: 'Premium Single Room Whitefield', location: 'Whitefield', rent: 28000, roomType: 'SINGLE', furnishingStatus: 'FURNISHED' },
-    { ownerId: owner2.id, title: 'Budget Shared Room BTM', location: 'BTM Layout', rent: 7500, roomType: 'SHARED', furnishingStatus: 'UNFURNISHED' },
-    { ownerId: owner3.id, title: 'Modern Studio Koramangala 5th Block', location: 'Koramangala', rent: 19500, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
-    { ownerId: owner3.id, title: 'Semi-Furnished Room Indiranagar', location: 'Indiranagar', rent: 22000, roomType: 'SINGLE', furnishingStatus: 'SEMI_FURNISHED' },
-    { ownerId: owner3.id, title: 'Affordable Shared Whitefield', location: 'Whitefield', rent: 11000, roomType: 'SHARED', furnishingStatus: 'SEMI_FURNISHED' },
+    { ownerId: owner1.id, intent: 'ENTIRE_PROPERTY', title: 'Cozy Studio in Koramangala', location: 'Koramangala', rent: 15000, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
+    { ownerId: owner1.id, intent: 'ROOMMATE', title: 'Single Room near Indiranagar Metro', location: 'Indiranagar', rent: 18000, roomType: 'SINGLE', furnishingStatus: 'SEMI_FURNISHED' },
+    { ownerId: owner1.id, intent: 'ROOMMATE', title: 'Shared Room in BTM Layout', location: 'BTM Layout', rent: 9000, roomType: 'SHARED', furnishingStatus: 'UNFURNISHED' },
+    { ownerId: owner2.id, intent: 'ENTIRE_PROPERTY', title: 'Furnished Studio HSR Layout', location: 'HSR Layout', rent: 13000, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
+    { ownerId: owner2.id, intent: 'ROOMMATE', title: 'Premium Single Room Whitefield', location: 'Whitefield', rent: 28000, roomType: 'SINGLE', furnishingStatus: 'FURNISHED' },
+    { ownerId: owner2.id, intent: 'ROOMMATE', title: 'Budget Shared Room BTM', location: 'BTM Layout', rent: 7500, roomType: 'SHARED', furnishingStatus: 'UNFURNISHED' },
+    { ownerId: owner3.id, intent: 'ENTIRE_PROPERTY', title: 'Modern Studio Koramangala 5th Block', location: 'Koramangala', rent: 19500, roomType: 'STUDIO', furnishingStatus: 'FURNISHED' },
+    { ownerId: owner3.id, intent: 'ROOMMATE', title: 'Semi-Furnished Room Indiranagar', location: 'Indiranagar', rent: 22000, roomType: 'SINGLE', furnishingStatus: 'SEMI_FURNISHED' },
+    { ownerId: owner3.id, intent: 'ROOMMATE', title: 'Affordable Shared Whitefield', location: 'Whitefield', rent: 11000, roomType: 'SHARED', furnishingStatus: 'SEMI_FURNISHED' },
+  ];
+
+  const stockImages = [
+    '/uploads/dummy1.png',
+    '/uploads/dummy2.png',
+    '/uploads/dummy3.png'
   ];
 
   const listings = [];
-  for (const l of listingData) {
+  for (let i = 0; i < listingData.length; i++) {
+    const l = listingData[i];
     const listing = await prisma.listing.create({
-      data: { ...l, photos: [], availableFrom: new Date('2025-09-01') },
+      data: { 
+        ...l, 
+        photos: [stockImages[i % stockImages.length], stockImages[(i + 1) % stockImages.length]], 
+        availableFrom: new Date('2025-09-01') 
+      },
     });
     listings.push(listing);
   }

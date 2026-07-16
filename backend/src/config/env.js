@@ -17,7 +17,7 @@ const env = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
 
   // LLM
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY || '',
 
   // Email
   RESEND_API_KEY: process.env.RESEND_API_KEY || '',
@@ -45,7 +45,7 @@ function validateEnv() {
     console.warn(`⚠️  ${message} (non-fatal in development)`);
   }
 
-  const optional = ['GEMINI_API_KEY', 'RESEND_API_KEY'];
+  const optional = ['OPENROUTER_API_KEY', 'RESEND_API_KEY'];
   const missingOptional = optional.filter((key) => !env[key]);
   if (missingOptional.length > 0) {
     console.warn(

@@ -25,6 +25,11 @@ enum Role {
   ADMIN
 }
 
+enum Intent {
+  ENTIRE_PROPERTY
+  ROOMMATE
+}
+
 enum RoomType {
   SINGLE
   SHARED
@@ -72,6 +77,7 @@ model User {
 model TenantProfile {
   id                String   @id @default(uuid())
   userId            String   @unique @map("user_id")
+  intent            Intent   @default(ENTIRE_PROPERTY)
   preferredLocation String   @map("preferred_location")
   budgetMin         Int      @map("budget_min")
   budgetMax         Int      @map("budget_max")
@@ -90,6 +96,7 @@ model TenantProfile {
 model Listing {
   id               String           @id @default(uuid())
   ownerId          String           @map("owner_id")
+  intent           Intent           @default(ENTIRE_PROPERTY)
   title            String
   description      String?
   location         String

@@ -10,6 +10,7 @@ const router = Router();
 // ── Validation schemas ────────────────────────
 
 const createProfileSchema = z.object({
+  intent: z.enum(['ENTIRE_PROPERTY', 'ROOMMATE']).default('ENTIRE_PROPERTY'),
   preferredLocation: z.string().min(2, 'Preferred location must be at least 2 characters').max(200),
   budgetMin: z.number({ required_error: 'budgetMin is required' }).int().min(0, 'budgetMin must be non-negative'),
   budgetMax: z.number({ required_error: 'budgetMax is required' }).int().min(1, 'budgetMax must be at least 1'),
@@ -18,6 +19,7 @@ const createProfileSchema = z.object({
 
 // All fields optional for update — service handles partial merge
 const updateProfileSchema = z.object({
+  intent: z.enum(['ENTIRE_PROPERTY', 'ROOMMATE']).optional(),
   preferredLocation: z.string().min(2).max(200).optional(),
   budgetMin: z.number().int().min(0).optional(),
   budgetMax: z.number().int().min(1).optional(),

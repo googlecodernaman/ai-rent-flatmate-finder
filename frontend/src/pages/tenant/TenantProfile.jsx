@@ -18,6 +18,7 @@ export default function TenantProfile() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
   const [form, setForm] = useState({
+    intent: 'ENTIRE_PROPERTY',
     preferredLocation: '',
     budgetMin: '',
     budgetMax: '',
@@ -34,6 +35,7 @@ export default function TenantProfile() {
         const { data } = await api.get('/tenant-profile')
         setProfile(data)
         setForm({
+          intent: data.intent || 'ENTIRE_PROPERTY',
           preferredLocation: data.preferredLocation || '',
           budgetMin: data.budgetMin || '',
           budgetMax: data.budgetMax || '',
@@ -109,6 +111,43 @@ export default function TenantProfile() {
           <span className="material-symbols-outlined text-primary">tune</span>
           Preferences
         </h2>
+
+        {/* Intent */}
+        <div>
+          <label className="block text-body-sm font-semibold text-on-surface mb-3">What are you looking for?</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button
+              type="button"
+              onClick={() => setForm(f => ({ ...f, intent: 'ENTIRE_PROPERTY' }))}
+              className={`p-4 rounded-xl border-2 text-left transition-colors flex items-start gap-3 ${
+                form.intent === 'ENTIRE_PROPERTY'
+                  ? 'border-primary bg-primary/5 text-primary'
+                  : 'border-outline-variant hover:border-outline text-on-surface-variant'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[24px]">key</span>
+              <div>
+                <p className="font-semibold text-body-md text-on-surface">Entire Property</p>
+                <p className="text-body-sm text-on-surface-variant mt-1">I want to rent a full apartment or house.</p>
+              </div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setForm(f => ({ ...f, intent: 'ROOMMATE' }))}
+              className={`p-4 rounded-xl border-2 text-left transition-colors flex items-start gap-3 ${
+                form.intent === 'ROOMMATE'
+                  ? 'border-primary bg-primary/5 text-primary'
+                  : 'border-outline-variant hover:border-outline text-on-surface-variant'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[24px]">group</span>
+              <div>
+                <p className="font-semibold text-body-md text-on-surface">Roommate / Flatmate</p>
+                <p className="text-body-sm text-on-surface-variant mt-1">I am looking for a room in a shared flat.</p>
+              </div>
+            </button>
+          </div>
+        </div>
 
         {/* Location */}
         <div>

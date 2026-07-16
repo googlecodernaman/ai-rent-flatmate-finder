@@ -3,7 +3,7 @@ const { AppError } = require('../middleware/errorHandler');
 const { scoreAllTenantsForListing, invalidateAndRescore } = require('./batchScoring.service');
 
 // Fields whose edits invalidate compatibility scores (used in Task 8)
-const MATERIAL_FIELDS = new Set(['rent', 'location', 'roomType', 'furnishingStatus']);
+const MATERIAL_FIELDS = new Set(['intent', 'rent', 'location', 'roomType', 'furnishingStatus']);
 
 /**
  * Create a listing. Photos are stored as relative URL paths.
@@ -14,6 +14,7 @@ async function createListing(ownerId, data, files = []) {
   const listing = await prisma.listing.create({
     data: {
       ownerId,
+      intent: data.intent,
       title: data.title,
       description: data.description || null,
       location: data.location,
@@ -72,6 +73,7 @@ async function updateListing(listingId, ownerId, data, files = []) {
 
   const fieldMap = {
     title: 'title',
+    intent: 'intent',
     description: 'description',
     location: 'location',
     rent: 'rent',
@@ -235,6 +237,7 @@ function listingSelectFields() {
   return {
     id: true,
     ownerId: true,
+    intent: true,
     title: true,
     description: true,
     location: true,

@@ -14,7 +14,7 @@ export default function MyListings() {
     const load = async () => {
       try {
         const { data } = await api.get('/listings/my')
-        setListings(data.data || [])
+        setListings(Array.isArray(data) ? data : [])
       } catch (e) {
         setError(e.response?.data?.error?.message || 'Failed to load')
       } finally {
@@ -37,7 +37,7 @@ export default function MyListings() {
 
   const handleToggle = async (listing) => {
     try {
-      await api.patch(`/listings/${listing.id}/toggle`, { isFilled: !listing.isFilled })
+      await api.patch(`/listings/${listing.id}/fill`)
       setListings((prev) => prev.map((l) => l.id === listing.id ? { ...l, isFilled: !l.isFilled } : l))
       toast.success(listing.isFilled ? 'Listing reopened' : 'Marked as filled')
     } catch (e) {

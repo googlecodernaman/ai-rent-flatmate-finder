@@ -27,19 +27,6 @@ export default function ManageUsers() {
 
   useEffect(() => { load(1) }, [])
 
-  const handleToggle = async (user) => {
-    setActionLoading(user.id)
-    try {
-      await api.patch(`/admin/users/${user.id}/status`, { isActive: !user.isActive })
-      setUsers((prev) => prev.map((u) => u.id === user.id ? { ...u, isActive: !u.isActive } : u))
-      toast.success(user.isActive ? 'User deactivated' : 'User activated')
-    } catch (e) {
-      toast.error(e.response?.data?.error?.message || 'Failed to update')
-    } finally {
-      setActionLoading(null)
-    }
-  }
-
   const handleDelete = async (id) => {
     if (!confirm('Permanently delete this user?')) return
     setActionLoading(id)
@@ -75,7 +62,7 @@ export default function ManageUsers() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-outline-variant/20 bg-surface-container-low">
-                    {['User', 'Role', 'Status', 'Joined', 'Actions'].map((h) => (
+                    {['User', 'Role', 'Joined', 'Actions'].map((h) => (
                       <th key={h} className="text-left text-label-caps font-mono text-on-surface-variant px-4 py-3">{h}</th>
                     ))}
                   </tr>
@@ -94,24 +81,11 @@ export default function ManageUsers() {
                           {user.role}
                         </span>
                       </td>
-                      <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${user.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${user.isActive !== false ? 'bg-green-500' : 'bg-red-500'}`} />
-                          {user.isActive !== false ? 'Active' : 'Inactive'}
-                        </span>
-                      </td>
                       <td className="px-4 py-3 text-body-sm text-on-surface-variant">
                         {format(new Date(user.createdAt), 'dd MMM yyyy')}
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex gap-1">
-                          <button
-                            onClick={() => handleToggle(user)}
-                            disabled={actionLoading === user.id || user.role === 'ADMIN'}
-                            className="px-3 py-1.5 text-[12px] font-semibold rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors disabled:opacity-40"
-                          >
-                            {user.isActive !== false ? 'Deactivate' : 'Activate'}
-                          </button>
                           <button
                             onClick={() => handleDelete(user.id)}
                             disabled={actionLoading === user.id || user.role === 'ADMIN'}

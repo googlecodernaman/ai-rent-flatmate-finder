@@ -17,7 +17,7 @@ export default function InterestRequests() {
     const load = async () => {
       try {
         const { data } = await api.get('/interests/received')
-        setInterests(data.data || [])
+        setInterests(Array.isArray(data) ? data : [])
       } catch (e) {
         setError(e.response?.data?.error?.message || 'Failed to load')
       } finally {
@@ -30,8 +30,12 @@ export default function InterestRequests() {
   const handleAction = async (interestId, action) => {
     setActionLoading(interestId)
     try {
+      if (action === 'accept') {
+        await api.patch(`/interests/${interestId}/accept`)
+      } else {
+        await api.patch(`/interests/${interestId}/decline`)
+      }
       const status = action === 'accept' ? 'ACCEPTED' : 'DECLINED'
-      await api.patch(`/interests/${interestId}/status`, { status })
       setInterests((prev) =>
         prev.map((i) => (i.id === interestId ? { ...i, status } : i))
       )
